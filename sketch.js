@@ -8,7 +8,7 @@ function setup()
     for(let i = 0; i < amountTokens; i++){
         let token = new Token(random(width), random(height));
         let tokenSize = token.outerRingSize+token.outerRingStrokeWeight;
-        let centerX = (tokenSize*amountTokens+2)/2;
+        let centerX = (tokenSize*amountTokens)/2;
         let x = centerX+((tokenSize*i)+tokenSize/2);
         let y = 100;
         tokens.push(new Token(x, y));
