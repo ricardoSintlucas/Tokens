@@ -1,15 +1,18 @@
 let tokens = [];
 let amountTokens = 5;
+let maxTokens = 8;
+let xOffsetTokens = 40;
+let yOffsetTokens = 140;
+
 function setup() {
   createCanvas(1200, 300);
   background(43, 45, 57);
-
   for (let i = 0; i < amountTokens; i++) {
     let token = new Token(random(width), random(height));
     let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
-    let centerX = 0;
+    let centerX = xOffsetTokens;
     let x = centerX + (tokenSize * i + tokenSize / 2);
-    let y = 100;
+    let y = yOffsetTokens;
     tokens.push(new Token(x, y));
   }
 
@@ -38,15 +41,17 @@ function mouseClicked() {
 }
 
 function addToken() {
-  background(43, 45, 57);
-  let token = new Token(random(width), random(height));
-  let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
-  let centerX = 0;
-  let x = centerX + (tokenSize * tokens.length + tokenSize / 2);
-  let y = 100;
-  tokens.push(new Token(x, y));
-  for (let i = 0; i < tokens.length; i++) {
-    tokens[i].draw();
+  if (tokens.length < maxTokens) {
+    background(43, 45, 57);
+    let token = new Token(random(width), random(height));
+    let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
+    let centerX = xOffsetTokens;
+    let x = centerX + (tokenSize * tokens.length + tokenSize / 2);
+    let y = yOffsetTokens;
+    tokens.push(new Token(x, y));
+    for (let i = 0; i < tokens.length; i++) {
+      tokens[i].draw();
+    }
   }
 }
 
