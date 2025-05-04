@@ -1,23 +1,18 @@
 let tokens = [];
 let amountTokens = 5;
-function setup() 
-{
-	createCanvas(windowWidth, windowHeight);
-    background(255);
-    
-    for(let i = 0; i < amountTokens; i++){
-        let token = new Token(random(width), random(height));
-        let tokenSize = token.outerRingSize+token.outerRingStrokeWeight;
-        let centerX = (tokenSize*amountTokens)/2;
-        let x = centerX+((tokenSize*i)+tokenSize/2);
-        let y = 100;
-        tokens.push(new Token(x, y));
-    }
-    for(let i = 0; i < tokens.length; i++){
-        tokens[i].draw();
-    }
-       
-}
+function setup() {
+    createCanvas(1200, 300);
+    background(43, 45, 57);
+  
+    resetTokens();
+  
+    let addButton = createButton("add token");
+    addButton.mousePressed(addToken);
+    let removeButton = createButton("remove token");
+    removeButton.mousePressed(removeToken);
+    let resetButton = createButton("reset tokens");
+    resetButton.mousePressed(resetTokens);
+  }
 
 
 function mouseClicked(){
@@ -32,6 +27,47 @@ function mouseClicked(){
             token.flipOuterRing();
         }
     }
+}
+
+
+function addToken() {
+    background(43, 45, 57);
+    let token = new Token(random(width), random(height));
+    let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
+    let centerX = 0;
+    let x = centerX + (tokenSize * tokens.length + tokenSize / 2);
+    let y = 100;
+    tokens.push(new Token(x, y));
+    for (let i = 0; i < tokens.length; i++) {
+        tokens[i].draw();
+    }
+}
+
+
+function removeToken() {
+    background(43, 45, 57);
+    console.log(tokens.length);
+    if (tokens.length > 0) {
+      tokens.pop();
+      for (let i = 0; i < tokens.length; i++) {
+        tokens[i].draw();
+      }
+    }
+}
+
+function resetTokens() {
+   tokens = [];
+    background(43, 45, 57);
+    for (let i = 0; i < amountTokens; i++) {
+        let token = new Token(random(width), random(height));
+        let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
+        let centerX = 0;
+        let x = centerX + (tokenSize * i + tokenSize / 2);
+        let y = 100;
+        tokens.push(new Token(x, y));
+      }
     
-    
+    for (let i = 0; i < tokens.length; i++) {
+        tokens[i].draw();
+    }
 }
