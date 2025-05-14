@@ -1,17 +1,20 @@
 let tokens = [];
+let reservePoints = [];
 let amountTokens = 5;
 function setup() {
     createCanvas(1200, 300);
     background(43, 45, 57);
   
     resetTokens();
-  
+    resetReservePoints();
+
     let addButton = createButton("add token");
     addButton.mousePressed(addToken);
     let removeButton = createButton("remove token");
     removeButton.mousePressed(removeToken);
     let resetButton = createButton("reset tokens");
     resetButton.mousePressed(resetTokens);
+
   }
 
 
@@ -27,12 +30,35 @@ function mouseClicked(){
             token.flipOuterRing();
         }
     }
+
+    for(let i = 0; i < reservePoints.length; i++){
+        let reservePoint = reservePoints[i];
+        
+        let distance = dist(mouseX, mouseY, reservePoint.x, reservePoint.y);
+        if(distance < reservePoint.size){
+           reservePoint.flipColor();
+            
+        }
+    }
+
+}
+
+function resetReservePoints() { 
+    reservePoints = [];
+    for(let i = 0; i < 3; i++) {
+        reservePoints.push(new reservePoint(60*reservePoints.length+65, 200));
+    }
+    
+    for (let i = 0; i < reservePoints.length; i++) {
+        reservePoints[i].draw();
+    }
+
 }
 
 
 function addToken() {
     background(43, 45, 57);
-    let token = new Token(random(width), random(height));
+    let token = new Token(0, 0);
     let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
     let centerX = 0;
     let x = centerX + (tokenSize * tokens.length + tokenSize / 2);
@@ -59,15 +85,7 @@ function resetTokens() {
    tokens = [];
     background(43, 45, 57);
     for (let i = 0; i < amountTokens; i++) {
-        let token = new Token(random(width), random(height));
-        let tokenSize = token.outerRingSize + token.outerRingStrokeWeight;
-        let centerX = 0;
-        let x = centerX + (tokenSize * i + tokenSize / 2);
-        let y = 100;
-        tokens.push(new Token(x, y));
-      }
-    
-    for (let i = 0; i < tokens.length; i++) {
-        tokens[i].draw();
+        addToken();
     }
+    resetReservePoints();
 }
